@@ -14,6 +14,11 @@ export default defineConfig({
     },
   },
   server: {
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+  },
+  preview: {
     historyApiFallback: true,
   },
 });

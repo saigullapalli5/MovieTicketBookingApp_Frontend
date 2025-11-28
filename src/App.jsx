@@ -29,7 +29,7 @@ import Loader from "./components/loader/Loader";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Suspense
         fallback={
           <div className="loadingContainer">
@@ -40,77 +40,120 @@ const App = () => {
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Landing />} />
-          <Route path="/home" element={
-            localStorage.getItem("userDetails") ? <Home /> : <Navigate to="/login" replace />
-          } />
+          <Route
+            path="/home"
+            element={
+              localStorage.getItem("userDetails") ? (
+                <Home />
+              ) : (
+                <Navigate to="/login" state={{ from: "/home" }} replace />
+              )
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/showdetails/:movieId" element={<MovieDetails />} />
           <Route path="/movieshows/:movieName" element={<MovieShows />} />
           <Route path="/seats/:theatreName/:showId" element={<SeatsPage />} />
-          
+
+          {/* Add a catch-all route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+
           {/* User Routes - Require Authentication */}
-          <Route path="/savedmovies" element={
-            <UserProtection>
-              <FavoriteShows />
-            </UserProtection>
-          } />
-          <Route path="/editprofile" element={
-            <UserProtection>
-              <EditUserDetails />
-            </UserProtection>
-          } />
-          <Route path="/bookings" element={
-            <UserProtection>
-              <Bookings />
-            </UserProtection>
-          } />
-          <Route path="/profile" element={
-            <UserProtection>
-              <Profile />
-            </UserProtection>
-          } />
-          
+          <Route
+            path="/savedmovies"
+            element={
+              <UserProtection>
+                <FavoriteShows />
+              </UserProtection>
+            }
+          />
+          <Route
+            path="/editprofile"
+            element={
+              <UserProtection>
+                <EditUserDetails />
+              </UserProtection>
+            }
+          />
+          <Route
+            path="/bookings"
+            element={
+              <UserProtection>
+                <Bookings />
+              </UserProtection>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <UserProtection>
+                <Profile />
+              </UserProtection>
+            }
+          />
+
           {/* Admin Routes */}
-          <Route path="/admin/login" element={
-            localStorage.getItem("userDetails") ? (
-              <Navigate to="/admin" replace />
-            ) : (
-              <AdminLogin />
-            )
-          } />
-          <Route path="/admin/register" element={
-            localStorage.getItem("userDetails") ? (
-              <Navigate to="/admin" replace />
-            ) : (
-              <AdminRegister />
-            )
-          } />
-          <Route path="/admin" element={
-            <AdminProtection>
-              <Admin />
-            </AdminProtection>
-          } />
-          <Route path="/admin/addshow" element={
-            <AdminProtection>
-              <AddShow />
-            </AdminProtection>
-          } />
-          <Route path="/admin/addtheatre" element={
-            <AdminProtection>
-              <AddTheatre />
-            </AdminProtection>
-          } />
-          <Route path="/admin/addmovie" element={
-            <AdminProtection>
-              <AddMovie />
-            </AdminProtection>
-          } />
-          <Route path="/admin/allbookings" element={
-            <AdminProtection>
-              <AdminBookings />
-            </AdminProtection>
-          } />
+          <Route
+            path="/admin/login"
+            element={
+              localStorage.getItem("userDetails") ? (
+                <Navigate to="/admin" replace />
+              ) : (
+                <AdminLogin />
+              )
+            }
+          />
+          <Route
+            path="/admin/register"
+            element={
+              localStorage.getItem("userDetails") ? (
+                <Navigate to="/admin" replace />
+              ) : (
+                <AdminRegister />
+              )
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminProtection>
+                <Admin />
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/admin/addshow"
+            element={
+              <AdminProtection>
+                <AddShow />
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/admin/addtheatre"
+            element={
+              <AdminProtection>
+                <AddTheatre />
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/admin/addmovie"
+            element={
+              <AdminProtection>
+                <AddMovie />
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/admin/allbookings"
+            element={
+              <AdminProtection>
+                <AdminBookings />
+              </AdminProtection>
+            }
+          />
         </Routes>
       </Suspense>
     </BrowserRouter>
