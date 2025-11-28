@@ -1,23 +1,5 @@
 {
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "routes": [
-    {
-      "src": "^/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "^/favicon.ico",
-      "dest": "/favicon.ico"
-    },
-    {
-      "src": "^/logo(.*).(svg|png|jpg|jpeg|webp)$",
-      "dest": "/logo$1.$2"
-    },
-    {
-      "src": "^/(.*)",
-      "dest": "/index.html"
-    }
   ]
 }
